@@ -13,9 +13,10 @@
             padding: 20px;
         }
         input, button {
-            padding: 10px;
-            margin: 10px 0;
             width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
         }
         button {
             background-color: #e74c3c;
@@ -27,7 +28,7 @@
 </head>
 <body>
     <input type="text" id="userName" placeholder="Enter your name">
-    <button onclick="generateCertificate()">Download Certificate</button>
+    <button id="downloadBtn" onclick="generateCertificate()">Download Certificate</button>
 
     <script>
         async function generateCertificate() {
@@ -39,26 +40,20 @@
             }
 
             try {
-                // Create a new PDF document
-                const { PDFDocument, rgb, StandardFonts } = PDFLib;
+                // Create a new PDF
+                const { PDFDocument, rgb } = PDFLib;
                 const pdfDoc = await PDFDocument.create();
                 const page = pdfDoc.addPage([600, 400]);
                 
-                // Add user name to PDF
-                const fontSize = 30;
-                const textWidth = userName.length * (fontSize * 0.6);
-                const xPos = (page.getWidth() / 2) - (textWidth / 2);
-                const yPos = page.getHeight() / 2;
-                
+                // Add user's name to the PDF
                 page.drawText(userName, {
-                    x: xPos,
-                    y: yPos,
-                    size: fontSize,
+                    x: 50,
+                    y: 200,
+                    size: 30,
                     color: rgb(0, 0, 0),
-                    font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
                 });
-
-                // Download the PDF
+                
+                // Generate and download PDF
                 const pdfBytes = await pdfDoc.save();
                 const blob = new Blob([pdfBytes], { type: 'application/pdf' });
                 const link = document.createElement('a');
@@ -68,7 +63,7 @@
                 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Failed to generate certificate. Please try again.');
+                alert('Error generating certificate');
             }
         }
     </script>
