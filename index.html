@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Certificate Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="userName" placeholder="Enter your name">
+    <button onclick="generateCertificate()">Download Certificate</button>
+
+    <script>
+        async function generateCertificate() {
+            const userName = document.getElementById('userName').value.trim();
+            
+            if (!userName) {
+                alert('Please enter your name');
+                return;
+            }
+
+            try {
+                // Create a new PDF document
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
+                const pdfDoc = await PDFDocument.create();
+                const page = pdfDoc.addPage([600, 400]);
+                
+                // Add user name to PDF
+                const fontSize = 30;
+                const textWidth = userName.length * (fontSize * 0.6);
+                const xPos = (page.getWidth() / 2) - (textWidth / 2);
+                const yPos = page.getHeight() / 2;
+                
+                page.drawText(userName, {
+                    x: xPos,
+                    y: yPos,
+                    size: fontSize,
+                    color: rgb(0, 0, 0),
+                    font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
+                });
+
+                // Download the PDF
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `${userName}_Certificate.pdf`;
+                link.click();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate certificate. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
