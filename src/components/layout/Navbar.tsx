@@ -29,17 +29,21 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link to="/" className="text-xl font-bold text-shopBlue">
-            KathGolap Store
+          <Link to="/" className="text-xl font-bold text-frangipani-600 flex items-center gap-2">
+            <img 
+              src="https://images.pexels.com/photos/6621086/pexels-photo-6621086.jpeg?auto=compress&cs=tinysrgb&w=100" 
+              alt="Kathgolap Logo" 
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            Kathgolap
           </Link>
           
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             {categories.map((category) => (
               <Link 
                 key={category.path} 
                 to={category.path}
-                className="text-sm font-medium hover:text-shopBlue transition-colors"
+                className="text-sm font-medium hover:text-frangipani-600 transition-colors"
               >
                 {category.name}
               </Link>
@@ -47,7 +51,6 @@ export function Navbar() {
           </nav>
         </div>
 
-        {/* Search Form */}
         <form onSubmit={handleSearch} className="hidden md:flex w-1/3 relative">
           <Input
             type="search"
@@ -62,19 +65,17 @@ export function Navbar() {
         </form>
 
         <div className="flex items-center gap-4">
-          {/* Cart Link */}
           <Link to="/cart" className="relative">
             <Button variant="ghost" size="icon">
               <ShoppingCart className="h-5 w-5" />
               {cartItems.length > 0 && (
-                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-shopBlue text-white">
+                <Badge className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 bg-frangipani-500 text-white">
                   {cartItems.length}
                 </Badge>
               )}
             </Button>
           </Link>
 
-          {/* Mobile menu button */}
           <Button 
             variant="ghost" 
             size="icon" 
@@ -86,7 +87,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile navigation */}
       {isMenuOpen && (
         <div className="md:hidden p-4 border-t bg-background">
           <form onSubmit={handleSearch} className="mb-4 relative">
