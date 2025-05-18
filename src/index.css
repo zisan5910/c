@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 50% 98%;
+    --foreground: 20 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 40% 10%;
+
+    --primary: 24 100% 54%;
+    --primary-foreground: 30 50% 98%;
+
+    --secondary: 30 20% 90%;
+    --secondary-foreground: 20 40% 10%;
+
+    --muted: 30 20% 90%;
+    --muted-foreground: 20 40% 40%;
+
+    --accent: 30 20% 90%;
+    --accent-foreground: 20 40% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 30 50% 98%;
+
+    --border: 20 40% 86%;
+    --input: 20 40% 86%;
+    --ring: 24 100% 54%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 20 40% 10%;
+    --foreground: 30 50% 98%;
+
+    --card: 20 40% 10%;
+    --card-foreground: 30 50% 98%;
+
+    --popover: 20 40% 10%;
+    --popover-foreground: 30 50% 98%;
+
+    --primary: 24 100% 54%;
+    --primary-foreground: 30 50% 98%;
+
+    --secondary: 20 30% 20%;
+    --secondary-foreground: 30 50% 98%;
+
+    --muted: 20 30% 20%;
+    --muted-foreground: 30 50% 60%;
+
+    --accent: 20 30% 20%;
+    --accent-foreground: 30 50% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 30 50% 98%;
+
+    --border: 20 30% 20%;
+    --input: 20 30% 20%;
+    --ring: 24 100% 54%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .product-card {
+    @apply relative rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-300 hover:shadow-md overflow-hidden;
+  }
+
+  .product-image {
+    @apply aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105;
+  }
+  
+  .badge {
+    @apply absolute top-2 left-2 rounded-full px-2 py-1 text-xs font-medium;
+  }
+  
+  .badge-discount {
+    @apply bg-red-500 text-white;
+  }
+  
+  .badge-new {
+    @apply bg-frangipani-500 text-white;
+  }
+
+  .price {
+    @apply text-lg font-bold text-frangipani-700;
+  }
+  
+  .price-old {
+    @apply text-sm line-through text-gray-400;
+  }
+}
